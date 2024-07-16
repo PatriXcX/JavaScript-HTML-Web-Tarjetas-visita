@@ -4,6 +4,8 @@ let inputEmail = document.querySelector(".js__inputEmail");
 let inputPhone = document.querySelector(".js__inputPhone");
 let inputLinkedin = document.querySelector(".js__inputLinkedin");
 let inputGithub = document.querySelector(".js__inputGithub");
+const inputImage = document.querySelector(".js__profile-image");
+const previewImage = document.querySelector(".js__profile-preview");
 
 const linkPhone = document.querySelector(".js__link__phone");
 const linkEmail = document.querySelector(".js__link__email");
@@ -35,11 +37,15 @@ const updateColors = () => {
   refreshPalletsStyles();
 };
 
-const updatePhoto = () => {
+//Reset image
+const updateImage = () => {
   if (data.photo === "") {
-    profilePreview.style.backgroundImage = "none";
-  } else {
-    profilePreview.style.backgroundImage = `url(${data.photo})`;
+    previewImage.setAttribute("style", "");
+    inputImage.setAttribute("style", "");
+  } else if (data.photo.trim() > 0) {
+    //remove the blank space to the string
+    previewImage.setAttribute("style", data.photo);
+    inputImage.setAttribute("style", data.photo);
   }
 };
 
@@ -50,5 +56,5 @@ const updatePreview = () => {
 
   updateColors();
 
-  updatePhoto();
+  updateImage();
 };
