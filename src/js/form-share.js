@@ -11,31 +11,43 @@ const designForm = document.querySelector(".js__design_form");
 const formFill = document.querySelector(".js__form_fill");
 const createMessage = document.querySelector(".js__createMessage");
 const creatCardLink = document.querySelector(".js__creatCardLink");
+const twitterBtn = document.querySelector('.js__twitterBtn');
 
 const handleClickCreate = (ev) => {
-  ev.preventDefault();
-  console.log("boton clickeado");
-  createCardBtn.classList.add("disabled");
-  createCardIcon.classList.add("disabled_icon");
+    ev.preventDefault();
+    console.log("boton clickeado");   
 
-  fetch("https://dev.adalab.es/api/card/", {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => response.json())
-    .then((dataResponse) => {
-      console.log("Hola", dataResponse);
-      if (dataResponse.success === false) {
-        createMessage.innerHTML = `<P>Ha sucedido un error al crear la tarjeta</P>
+    fetch('https://dev.adalab.es/api/card/', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
+        .then(response => response.json())
+        .then(dataResponse => {
+
+            if (dataResponse.success === false) {
+                createMessage.innerHTML =
+                    `<P>Ha sucedido un error al crear la tarjeta</P>
              <P>${dataResponse.error}</P>
             `;
-      } else if (dataResponse.success === true) {
-        creatCardLink.innerHTML = `${dataResponse.cardURL}`;
-      }
-    });
+            } else if (dataResponse.success === true) {
+                creatCardLink.innerHTML = `<a href="${dataResponse.cardURL}" target="_blank" class="creat_Card_link">${dataResponse.cardURL}</a>`;
+                createMessage.classList.add('visible');
+                createCardBtn.classList.add("disabled");
+                createCardIcon.classList.add("disabled_icon");
+             
+                const tweetUrl = (dataResponse.cardURL); 
+                twitterBtn.href = `https://twitter.com/intent/tweet?url=${tweetUrl}`; 
+                twitterBtn.style.display = 'inline-block';
+
+
+
+            }
+        })
+
 };
 
 const handleclickDisplay = (ev) => {
