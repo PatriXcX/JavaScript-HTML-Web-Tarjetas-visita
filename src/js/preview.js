@@ -35,10 +35,20 @@ const updateColors = () => {
   refreshPalletsStyles();
 };
 
+const updatePhoto = () => {
+  if (data.photo === "") {
+    profilePreview.style.backgroundImage = "none";
+  } else {
+    profilePreview.style.backgroundImage = `url(${data.photo})`;
+  }
+};
+
 const updatePreview = () => {
   updateTexts();
 
   updateLinks();
 
   updateColors();
+
+  updatePhoto();
 };
