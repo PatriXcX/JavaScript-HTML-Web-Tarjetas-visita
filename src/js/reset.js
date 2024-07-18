@@ -12,6 +12,10 @@ const handleClickReset = (ev) => {
     github: "",
     photo: "",
   };
+  createCardBtn.classList.remove("disabled");
+  createCardIcon.classList.remove("disabled_icon");
+  createMessage.classList.remove('visible');
+  createMessage.classList.add('hidden');
 
   formReset.reset();
 
