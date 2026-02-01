@@ -17,6 +17,32 @@ const handleClickCreate = (ev) => {
   ev.preventDefault();
   console.log("boton clickeado");
 
+  const handleClickCreate = (ev) => {
+  ev.preventDefault();
+
+  const data = {
+    palette: 1,
+    name: nameInput.value,
+    job: jobInput.value,
+    phone: phoneInput.value,
+    email: emailInput.value,
+    linkedin: linkedinInput.value,
+    github: githubInput.value,
+    photo: ""
+  };
+
+  fetch("https://dev.adalab.es/api/card/", {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: { "Content-Type": "application/json" }
+  })
+    .then(res => res.json())
+    .then(dataResponse => {
+      console.log(dataResponse);
+    });
+};
+
+
   fetch('https://dev.adalab.es/api/card/', {
     method: 'POST',
     body: JSON.stringify(data),
@@ -118,3 +144,4 @@ createCardBtn.addEventListener("click", handleClickCreate);
 iconArrowShare.addEventListener("click", handleclickDisplay);
 iconArrowFill.addEventListener("click", handleclickDisplay);
 iconArrowDesign.addEventListener("click", handleclickDisplay);
+
