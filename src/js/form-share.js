@@ -25,43 +25,49 @@ const githubInput = document.querySelector(".js__inputGithub");
 const handleClickCreate = (ev) => {
   ev.preventDefault();
   console.log("boton clickeado");
+fetch("https://dev.adalab.es/api/card/", {
+  method: "POST",
+  body: JSON.stringify(data),
+  headers: { "Content-Type": "application/json" }
+})
+  .then(response => response.json())
+  .then(dataResponse => {
+    console.log(dataResponse);
 
-  fetch("https://dev.adalab.es/api/card/", {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: { "Content-Type": "application/json" }
+    // ✅ enseñar el bloque SIEMPRE
+    createMessage.classList.remove("hidden");
+    createMessage.classList.add("visible");
+
+    if (dataResponse.success === false) {
+      createMessage.innerHTML =
+        `<p>Ha sucedido un error al crear la tarjeta</p>
+         <p>${dataResponse.error}</p>`;
+      return;
+    }
+
+    // ✅ éxito
+    creatCardLink.innerHTML =
+      `<a href="${dataResponse.cardURL}" target="_blank" class="creat_Card_link">${dataResponse.cardURL}</a>`;
+
+    createCardBtn.classList.add("disabled");
+    createCardIcon.classList.add("disabled_icon");
+
+    const tweetUrl = encodeURIComponent(dataResponse.cardURL);
+    twitterBtn.href = `https://twitter.com/intent/tweet?url=${tweetUrl}`;
+    twitterBtn.style.display = "block";
   })
-    .then(response => response.json())
-    .then(dataResponse => {
-      console.log(dataResponse);
-
-      // ✅ enseñar el bloque SIEMPRE
-      createMessage.classList.remove("hidden");
-      createMessage.classList.add("visible");
-
-      if (dataResponse.success === false) {
-        createMessage.innerHTML =
-          `<p>Ha sucedido un error al crear la tarjeta</p>
-           <p>${dataResponse.error}</p>`;
-        return;
-      }
-
-      // ✅ éxito
-      creatCardLink.innerHTML =
-        `<a href="${dataResponse.cardURL}" target="_blank" class="creat_Card_link">${dataResponse.cardURL}</a>`;
-
-      createCardBtn.classList.add("disabled");
-      createCardIcon.classList.add("disabled_icon");
-
-      const tweetUrl = encodeURIComponent(dataResponse.cardURL);
-      twitterBtn.href = `https://twitter.com/intent/tweet?url=${tweetUrl}`;
-      twitterBtn.style.display = "block";
-    });
+  .catch(err => {
+    // ✅ AQUÍ SALDRÁ EL MENSAJE EN PAGES (CORS)
+    createMessage.classList.remove("hidden");
+    createMessage.classList.add("visible");
+    createMessage.innerHTML = `
+      <p><strong>Demo en GitHub Pages</strong></p>
+      <p>La API de Adalab bloquea peticiones externas (CORS).</p>
+      <p>Para probar “Crear tarjeta”, ejecútalo en local.</p>
+    `;
+    console.error(err);
+  });
 };
-
-
-
- 
 
 
 
@@ -130,6 +136,7 @@ createCardBtn.addEventListener("click", handleClickCreate);
 iconArrowShare.addEventListener("click", handleclickDisplay);
 iconArrowFill.addEventListener("click", handleclickDisplay);
 iconArrowDesign.addEventListener("click", handleclickDisplay);
+
 
 
 
