@@ -57,16 +57,22 @@ fetch("https://dev.adalab.es/api/card/", {
     twitterBtn.style.display = "block";
   })
   .catch(err => {
-    // ✅ AQUÍ SALDRÁ EL MENSAJE EN PAGES (CORS)
-    createMessage.classList.remove("hidden");
-    createMessage.classList.add("visible");
-    createMessage.innerHTML = `
-      <p><strong>Demo en GitHub Pages</strong></p>
-      <p>La API de Adalab bloquea peticiones externas (CORS).</p>
-      <p>Para probar “Crear tarjeta”, ejecútalo en local.</p>
-    `;
-    console.error(err);
-  });
+  // 🔓 FORZAR APERTURA DE LA SECCIÓN COMPARTIR
+  formShareSection.classList.remove("hidden");
+  formShareSection.classList.add("visible");
+
+  createMessage.classList.remove("hidden");
+  createMessage.classList.add("visible");
+
+  createMessage.innerHTML = `
+    <p><strong>Demo en GitHub Pages</strong></p>
+    <p>La API de Adalab bloquea peticiones externas (CORS).</p>
+    <p>Para probar “Crear tarjeta”, ejecuta el proyecto en local.</p>
+  `;
+
+  console.error(err);
+});
+
 };
 
 
@@ -136,6 +142,7 @@ createCardBtn.addEventListener("click", handleClickCreate);
 iconArrowShare.addEventListener("click", handleclickDisplay);
 iconArrowFill.addEventListener("click", handleclickDisplay);
 iconArrowDesign.addEventListener("click", handleclickDisplay);
+
 
 
 
