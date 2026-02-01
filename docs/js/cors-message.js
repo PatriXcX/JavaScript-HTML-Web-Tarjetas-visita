@@ -28,7 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
     box.innerHTML = `
       <h2 class="created_Card">Demo en GitHub Pages</h2>
       <p>La API de Adalab bloquea peticiones externas (CORS), por eso no se puede crear la tarjeta aquí.</p>
-      <p><strong>Para probar “Crear tarjeta”:</strong> ejecuta el proyecto en local.</p>
+      
+      <p><strong>Para probar la funcionalidad completa, ejecuta el proyecto en entorno local.</p>
     `;
   };
 
