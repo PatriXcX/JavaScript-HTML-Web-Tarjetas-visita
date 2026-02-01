@@ -17,9 +17,6 @@ const handleClickCreate = (ev) => {
   ev.preventDefault();
   console.log("boton clickeado");
 
-  const handleClickCreate = (ev) => {
-  ev.preventDefault();
-
   const data = {
     palette: 1,
     name: nameInput.value,
@@ -144,4 +141,5 @@ createCardBtn.addEventListener("click", handleClickCreate);
 iconArrowShare.addEventListener("click", handleclickDisplay);
 iconArrowFill.addEventListener("click", handleclickDisplay);
 iconArrowDesign.addEventListener("click", handleclickDisplay);
+
 
